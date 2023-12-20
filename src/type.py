@@ -5,7 +5,7 @@ class Varchar:
     def __str__(self):
         return f"VARCHAR({self.length})"
 
-class NotNull():
+class NotNull:
     def __str__(self):
         return "NOT NULL"
 

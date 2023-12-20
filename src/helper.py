@@ -152,17 +152,3 @@ class Helper:
 
     def update_table_cols(self,table,existing_col,new_cols):
         pass
-
-    def convertDataToJson(self,data,headers):
-        json_data = []
-
-        for item in data:
-            json_item = {}
-
-            for i in range(len(headers)):
-                json_item[headers[i]] = item[i]
-            
-            json_data.append(json_item)
-
-        json_string = json.dumps(json_data,indent=2)
-        return json_string

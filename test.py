@@ -1,8 +1,15 @@
 from index import DB
-from src.types import Varchar, NotNull,AutoIncrement,Integer
+from src.type import Varchar, NotNull,AutoIncrement,Integer
 from src.columns import Column
 
-db = DB()
+config = {
+    "response":"json",
+    'encrypt':True,
+}
+
+db = DB(config=config)
+
+print(db.__printConfig())
 
 # print(db.getAll('user'))
 col = {
@@ -19,7 +26,9 @@ fruits_data = ["apple","cucumber",'peach',"avacado","melon",'lemon','tomato','po
 #     })
 
 
-print(db.getAll('fruit'))
-
+# print(db.getAll('fruit',json=True))
+# result = db.getOne('fruit','title','apple')
+# result = db.getOne(table='fruit',field='title',value='apple')
+# print(result)
 
 db.close_connection()
