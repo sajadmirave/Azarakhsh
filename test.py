@@ -20,14 +20,25 @@ fruits_data = ["apple","cucumber",'peach',"avacado","melon",'lemon','tomato','po
 #     })
 
 
-# print(db.getAll('fruit',json=True))
+print(db.getAll('fruit',json=True))
 # result = db.getOne('fruit','title','apple')
 # result = db.getOne(table='fruit',field='title',value='apple')
 # print(result)
 
-print(db.exists(table='fruit',field='title',value='apple')
-)
+# print(db.exists(table='fruit',field='title',value='apple')
+# )
 
-print(db.count(table='fruit'))
+# print(db.count(table='fruit'))
+
+updated_data = {
+    "title":"banana"
+}
+
+condition = {
+    "title":"banana1",
+    # "title1":"banana",
+}
+# db.update('fruit',condition,updated_data)
+# db.update(table='fruit',data=updated_data,condition_field='title',condition_value='apple')
 
 db.close_connection()
