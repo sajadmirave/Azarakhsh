@@ -125,6 +125,17 @@ class DB:
             case False:
                 return self.helper.updateWithOneCondition(table,set_clause,values,condition_field,condition_value)
 
+    # delete record
+    def delete(self,table,condition):
+        key,value =  next(iter(condition.items()))
+
+        query = f'''
+            DELETE FROM {table} WHERE {key}= ?
+        '''
+        print(query)
+        self.cursor.execute(query,(value,))
+        self.connection.commit()
+
     def close_connection(self):
         return self.connection.close()
 

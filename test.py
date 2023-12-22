@@ -41,4 +41,8 @@ condition = {
 # db.update('fruit',condition,updated_data)
 # db.update(table='fruit',data=updated_data,condition_field='title',condition_value='apple')
 
+# db.delete('fruit',{
+#     'title':"tomato"
+# })
+
 db.close_connection()
