@@ -28,4 +28,6 @@ fruits_data = ["apple","cucumber",'peach',"avacado","melon",'lemon','tomato','po
 print(db.exists(table='fruit',field='title',value='apple')
 )
 
+print(db.count(table='fruit'))
+
 db.close_connection()

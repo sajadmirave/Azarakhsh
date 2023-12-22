@@ -87,15 +87,20 @@ class DB:
             ) AS is_exists
         '''.format(table,field)
 
+        # this return (0 or 1 ,) and in here we get first index 
         self.cursor.execute(query,(value,))
         result = self.cursor.fetchone()[0]
 
-        return bool(result)
+        # convert 0,1 to bool
+        return bool(result) 
 
+    def count(self,table):
+        query = '''
+            SELECT COUNT(*) FROM {}
+        '''.format(table)
 
-
-    def count(self):
-        pass
+        self.cursor.execute(query)
+        return self.cursor.fetchone()[0] # get first index and returned 
     
     def close_connection(self):
         return self.connection.close()
