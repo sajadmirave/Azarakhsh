@@ -8,14 +8,16 @@ from src.response import Response
 # encryption
 # Author - Mr Fucking Le
 
-
 class DB:
-    def __init__(self,config):
+    def __init__(self):
         self.connection = sqlite3.connect('app.db') # create connection
         self.cursor = self.connection.cursor() 
-        self.config = config
         self.helper = Helper(self.cursor)
         self.response = Response()
+
+        # set config
+        self.jsonResponse = False
+        self.encryptData = False
 
     # create table
     # @param dict col - give the columns structure for table
@@ -54,14 +56,14 @@ class DB:
         data =  self.cursor.fetchall()
 
         # when user choose response with json then we convert simple data to json
-        if json:
+        if json or self.jsonResponse:
             headers = self.helper.getColTitleFromTable(table) # get table titles 
             return self.response.json(data,headers) # response
 
         return data
     
     # get one
-    def getOne(self,table,field,value,json=True):
+    def getOne(self,table,field,value,json=False):
         query = '''
             SELECT * FROM {}
             WHERE {} = ?
@@ -70,11 +72,30 @@ class DB:
         self.cursor.execute(query,(value,))
         data = self.cursor.fetchall()
 
-        if json and data is not None:
+        if json or self.jsonResponse:
             headers = self.helper.getColTitleFromTable(table)
             return self.response.json(data,headers)
 
         return data
+    
+    def exists(self,table,field,value):
+        query = '''
+            SELECT EXISTS(
+             SELECT 1
+             FROM {}
+             WHERE {} = ?
+            ) AS is_exists
+        '''.format(table,field)
+
+        self.cursor.execute(query,(value,))
+        result = self.cursor.fetchone()[0]
+
+        return bool(result)
+
+
+
+    def count(self):
+        pass
     
     def close_connection(self):
         return self.connection.close()
