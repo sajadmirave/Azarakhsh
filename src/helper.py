@@ -1,8 +1,9 @@
 import json
 
 class Helper:
-    def __init__(self,cursor):
+    def __init__(self,cursor,connection):
         self.cursor = cursor
+        self.connection = connection
 
     """
     Get col title and type from dict
@@ -152,3 +153,32 @@ class Helper:
 
     def update_table_cols(self,table,existing_col,new_cols):
         pass
+
+
+    # update
+    def updateWithMultipleCondition(self,table,set_clause,values,condition_data,condition_value):
+
+        condition_field = [f'{key} = ?' for key in condition_data]
+        condition_field_string = ', AND '.join(condition_field)
+
+        query = f'''
+            UPDATE {table}
+            SET {set_clause}
+            WHERE {condition_field_string}
+        '''
+
+        self.cursor.execute(query, values + condition_value)
+        # Assuming you want to commit the changes to the database
+        self.connection.commit()
+
+
+    def updateWithOneCondition(self,table,set_clause,values,condition_field,condition_value):
+        query = f'''
+            UPDATE {table}
+            SET {set_clause}
+            WHERE {condition_field} = ?
+        '''
+
+        self.cursor.execute(query, values + condition_value)
+        # Assuming you want to commit the changes to the database
+        self.connection.commit()

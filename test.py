@@ -31,11 +31,11 @@ print(db.getAll('fruit',json=True))
 # print(db.count(table='fruit'))
 
 updated_data = {
-    "title":"banana"
+    "title":"new_banana"
 }
 
 condition = {
-    "title":"banana1",
+    "title":"banana",
     # "title1":"banana",
 }
 # db.update('fruit',condition,updated_data)

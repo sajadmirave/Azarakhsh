@@ -12,7 +12,7 @@ class DB:
     def __init__(self):
         self.connection = sqlite3.connect('app.db') # create connection
         self.cursor = self.connection.cursor() 
-        self.helper = Helper(self.cursor)
+        self.helper = Helper(self.cursor,self.connection)
         self.response = Response()
 
         # set config
@@ -118,33 +118,12 @@ class DB:
         # @reutrn false when it has one condition
         # @reutrn true when it has multiple condition
         is_multiple = len(condition_data) != 1 
-        print(f'is multiple {is_multiple}')
 
-        query = ''
-
-        if not is_multiple:
-            query = f'''
-                UPDATE {table}
-                SET {set_clause}
-                WHERE {condition_field} = ?
-            '''
-
-
-        if is_multiple:
-            condition_field = [f'{key} = ?' for key in condition_data]
-            condition_field_string = ', AND '.join(condition_field)
-
-            query = f'''
-                UPDATE {table}
-                SET {set_clause}
-                WHERE {condition_field_string}
-            '''
-
-        print(query)
-        # Assuming self.connection is your SQLite connection
-        self.cursor.execute(query, values + condition_value)
-        # Assuming you want to commit the changes to the database
-        self.connection.commit()
+        match is_multiple:
+            case True:
+                return self.helper.updateWithMultipleCondition(table,set_clause,values,condition_data,condition_value)
+            case False:
+                return self.helper.updateWithOneCondition(table,set_clause,values,condition_field,condition_value)
 
     def close_connection(self):
         return self.connection.close()
