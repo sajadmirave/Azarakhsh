@@ -147,3 +147,5 @@ db.update('fruit',selected_data,updated_data)
 * delete
 * relation between two table
 * config your db
+* choose password for your connection
+* gui data preview (open in web)
