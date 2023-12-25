@@ -9,8 +9,8 @@ from src.response import Response
 # Author - Mr Fucking Le
 
 class DB:
-    def __init__(self):
-        self.connection = sqlite3.connect('app.db') # create connection
+    def __init__(self,connection):
+        self.connection = sqlite3.connect(connection) # create connection
         self.cursor = self.connection.cursor() 
         self.helper = Helper(self.cursor,self.connection)
         self.response = Response()

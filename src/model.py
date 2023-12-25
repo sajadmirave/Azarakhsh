@@ -10,10 +10,10 @@ root = os.path.dirname(os.path.dirname(current_path))
 sys.path.append(root)
 
 from index import DB
-db = DB()
 
 class Model:
-    def __init__(self,table,cols):
+    def __init__(self,connection,table,cols):
+        self.db = DB(connection)
         self.table = table
         self.cols = cols
         self.fields = {}
@@ -30,4 +30,4 @@ class Model:
             self.fields[key] = name
 
     def __create_table(self):
-        db.model(self.table,self.cols)
+        self.db.model(self.table,self.cols)
