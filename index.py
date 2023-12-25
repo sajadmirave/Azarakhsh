@@ -136,6 +136,14 @@ class DB:
         self.cursor.execute(query,(value,))
         self.connection.commit()
 
+    def delete_table(self,table):
+        query = f'''
+            DROP TABLE {table}
+        '''
+
+        self.cursor.execute(query)
+        self.connection.commit()
+
     def close_connection(self):
         return self.connection.close()
 

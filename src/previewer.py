@@ -1,12 +1,29 @@
-from flask import Flask
+from flask import Flask,jsonify
 import subprocess
+
+import sys
+import os
+
+# get current path
+current_path = os.path.abspath(__file__)
+
+# get root directory path
+root = os.path.dirname(os.path.dirname(current_path))
+
+sys.path.append(root)
+
+from index import DB
+
+
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    result = subprocess.check_output(['php','./src/previewer/index.php'])
-    return result
+    db = DB()
+    result = db.getAll('fruit')
+    db.close_connection()
+    return jsonify(result)        
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
