@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    db = DB()
+    db = DB('myDB.db')
     result = db.getAll('fruit')
     db.close_connection()
     return jsonify(result)        

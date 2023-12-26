@@ -50,15 +50,21 @@ from src.columns import Column
 from src.model import Model
 
 
-fruit = Model('fruit',{
-    "title":"varchar",
-    "name":"di"
+fruit = Model('myDB.db','fruit',{
+    "id":Column('id',Integer(),AutoIncrement()),
+    "title":Column("title",Varchar(20),NotNull())
 })
 
+# # print(fruit.title)
+# fruit.insert({
+#     fruit.title:"baana",
+# })
+
 # fruit.create()
-print(fruit.name)
 
 # fruit.change()
 # print(fruit.test1)
 
+
 # fruit.create_property('hello')
+
