@@ -55,11 +55,13 @@ fruit = Model('myDB.db','fruit',{
     "title":Column("title",Varchar(20),NotNull())
 })
 
+fruit.delete({fruit.id : 1})
+
 # # print(fruit.title)
 # fruit.insert({
-#     fruit.title:"baana",
+#     fruit.title:"apple",
 # })
-print(fruit.getAll())
+# print(fruit.getAll())
 # fruit.create()
 
 # fruit.change()

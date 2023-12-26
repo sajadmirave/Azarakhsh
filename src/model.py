@@ -13,6 +13,7 @@ from index import DB
 from src.helper import Helper
 
 class Model:
+    # initilazing and helpers
     def __init__(self,connection,table,cols):
         self.db = DB(connection)
         self.helper = Helper(self.db.cursor,self.db.connection)
@@ -58,8 +59,8 @@ class Model:
             data[keys[i]] = values[i]
         
         return data
-
-
+    # ----------------------------------------------
+    # querys
     def insert(self,data):
         key_list = self.__get_cols_string_from_hex(data)
         field_title = self.__get_field_title_from_string(key_list)
@@ -70,3 +71,14 @@ class Model:
 
     def getAll(self):
         return self.db.getAll(self.table,self.jsonResponse)
+    
+    def delete(self,data):
+        key_list = self.__get_cols_string_from_hex(data)
+        field_title = self.__get_field_title_from_string(key_list)
+        value_list = self.__get_data_from_hex(data)
+
+        data = self.__create_dict_data(field_title,value_list)
+        self.db.delete(self.table,data)
+        
+    def delete_table(self):
+        self.db.delete_table(self.table)
