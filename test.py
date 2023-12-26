@@ -59,7 +59,7 @@ fruit = Model('myDB.db','fruit',{
 # fruit.insert({
 #     fruit.title:"baana",
 # })
-
+print(fruit.getAll())
 # fruit.create()
 
 # fruit.change()

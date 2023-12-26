@@ -20,6 +20,7 @@ class Model:
         self.cols = cols
         self.fields = {}
         self.__create()
+        self.jsonResponse = False
 
     def __create(self):
         # create property for fields
@@ -66,3 +67,6 @@ class Model:
 
         data = self.__create_dict_data(field_title,value_list)
         self.db.insert(self.table,data)
+
+    def getAll(self):
+        return self.db.getAll(self.table,self.jsonResponse)
